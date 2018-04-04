@@ -50,7 +50,7 @@
      SELECT * FROM MEMBER WHERE ID LIKE #{data1}
      </select>
      <select id="exist" resultType="int" parameterType="com.bitcamp.web.domain.Command">
-     SELECT COUNT(*) FROM MEMBER WHERE ID LIKE #{data1} AND PASS LIKE #{data2}
+     	SELECT COUNT(*) from ${type} where ${id} like #{data1} and ${pass} like #{data2}
      </select>
      <delete id="deleteMember" parameterType="com.bitcamp.web.domain.Command"></delete>
      <select id="existArticle" resultType="int" parameterType="com.bitcamp.web.domain.Command">
@@ -70,4 +70,37 @@
                ) A,(SELECT @rank := 0) R) A2
                 where rank between #{data3} and #{data4}
       </select>
+      <insert id="addImage" parameterType="com.bitcamp.web.domain.Image">
+      	INSERT INTO Image
+      	VALUES (#{imageID},#{filename},#{extension},now())
+      </insert>
+      <select  id="existAdmin" resultType="int" parameterType="com.bitcamp.web.domain.Command">
+        SELECT COUNT(*) FROM admin WHERE admID LIKE #{data1}
+      </select>
+      <select id="selectByName"
+      resultMap="member"
+      parameterType="hashMap">
+      Select * from ${type}
+      where ${id} like #{data}
+      </select>
+      <select id="searchMemberById"
+      resultMap="member"
+      parameterType="hashMap">
+      Select * from ${type}
+      where ${id} like #{data}
+      </select>
+  <resultMap type="com.bitcamp.web.domain.Member" id="member">
+      <id property="id" column="id"/>
+      <result property="pass" column="pass"/>
+      <result property="name" column="name"/>
+      <result property="ssn" column="ssn"/>
+      <result property="phone" column="phone"/>
+      <result property="email" column="email"/>
+      <result property="profile" column="profile"/>
+      <result property="addr" column="addr"/>
+  </resultMap>
+ <resultMap type="com.bitcamp.web.domain.Admin" id="admin">
+      <id property="admID" column="admID"/>
+      <result property="admPass" column="admPass"/>
+   </resultMap>
 </mapper>

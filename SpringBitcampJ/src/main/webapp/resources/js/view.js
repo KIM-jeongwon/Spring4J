@@ -1,3 +1,75 @@
+var createInput=x=>{
+  return '<input id="'+x.id+'"class="'+x.clazz+'" type="'+x.type+'" value="'+x.val+'" placeholder="'+x.ph+'">';
+};
+
+var createForm=x=>{
+    return '<form id="'+x.id+'" action="'+x.action+'" class="'+x.clazz+'" method="post"></form>';
+}
+var boardW=x=>{
+    return '<div class="board_type1_write_wrap">'
+    +'      <table class="board_write_type1">'
+    +'        <tr>'
+    +'          <td class="left" >'
+    +'            <div class="column_name">글제목</div>'
+    +'            <div class="column_desc"><input type="text" id="input-title"  name="title" class="text_type1"/></div>'
+    +'          </td>'
+    +'        </tr>'
+    +'        <tr>'
+    +'          <td class="left">'
+    +'            <ul class="split_three">'
+    +'              <li>'
+    +'                <div class="column_name">ID</div>'
+    +'                <div class="column_desc"><input type="text" id="input-id" value="장만호1" name="userid" class="text_type1"/></div>'
+    +'              </li>'
+    +'              <li>'
+    +'                <div class="column_name">옵션</div>'
+    +'                <div class="column_desc">'
+    +'                </div>'
+    +'              </li> '
+    +'            </ul>'
+    +'          </td>'
+    +'        </tr>'
+    +'        <tr>'
+    +'        <td class="left">'
+    +'          <div class="column_name">업로드 이미지</div>  '
+    +'          <div class="column_desc"></div>'
+    +'        </td>'
+    +'        </tr>'
+    +'        <tr>'
+    +'          <td class="left" >'
+    +'            <div class="column_name">내용</div> '
+    +'              <textarea name="content" rows="" cols="" id="input-content" class="textarea_type1" ></textarea>'
+    +'            <div class="column_desc">'
+    +'            </div>'
+    +'          </td>'
+    +'        </tr> '
+    +'      </table>'
+    +'    </div>'
+    +'    <!-- ok -->'
+    +'    <div class="button_margin"></div>'
+    +'    <div class="board_type1_write_button_wrap">'
+    +'      <div id="div-btn-group">'
+    +'      </div>  '
+    +'    </div>';
+}
+var fileUpload=x=>{
+	  return '  <div class="row">'
+	  +'    <div class="text-center">'
+	  +'      <h4 style="color: purple; font-size: 40px">File Upload</h4>'
+	  +'    </div>'
+	  +'    <div class="text-center">'
+	  +'      <span class="glyphicon glyphicon-sort fa-5x" style="font-size:20px;"></span>'
+	  +'    </div><br />'
+	  +'  </div>'
+	  +'  <div class="row" style="padding-left: 40px; padding-right: 40px">'
+	  +'    <div id="div-input-fileupload" class="form-group">'
+	  +'    </div>'
+	  +'  </div>'
+	  +'   <div class="row">'
+	  +'    <div id="btn-group" class="btn-group pull-right" style="margin-right: 40px">'
+	  +'    </div>'
+	  +'  </div>';
+	}
 var createNav=x=>{
 	return '<nav id="'+x.id+'" class="'+x.clazz+'"></nav>';
 }
@@ -8,17 +80,17 @@ var pagenation=x=>{
 	return '<ul class="pagination">'
 	+'  <c:if test="${page.prevBlock}" >'
 	+'    <li>'
-	+'        <a href="#" onclick="app.boardList(${page.pageStart-1}); +return false;" aria-label="Previous">'
+	+'        <a href="#" onclick="app.boardList(${page.pageStart-1}); return false;" aria-label="Previous">'
 	+'          <span aria-hidden="true">&laquo;</span>'
 	+'        </a>'
 	+'      </li>'
 	+'    </c:if>'
-	+'  <c:forEach begin="${page.pageStart}" end="${page.pageEnd}" step="1" +varStatus="i">'
+	+'  <c:forEach begin="${page.pageStart}" end="${page.pageEnd}" step="1" varStatus="i">'
 	+'      <li><a id="page-change" href="#" +onclick="app.boardList(${i.index}); return false;">${i.index}</a></li>'
 	+'    </c:forEach>'
 	+'    <c:if test="${page.nextBlock}">'
 	+'      <li>'
-	+'        <a href="#" onclick="app.boardList(${page.pageEnd+1}); return +false;" aria-label="Next">'
+	+'        <a href="#" onclick="app.boardList(${page.pageEnd+1}); return false;" aria-label="Next">'
 	+'          <span aria-hidden="true">&raquo;</span>'
 	+'        </a>'
 	+'      </li>'
@@ -135,17 +207,136 @@ var loginView=x=>{
 	+'                            </div>'
 	+'                        </fieldset>'
 	+'                    </form>'
+	+'				<div id="div-join-btn"class="panel-footer text-center">'
+	+'                    <p>SIGN / ADMIN&nbsp;&nbsp;'                   
 	+'                </div>'
-	+'                <div class="panel-footer text-center">'
-	+'                    <p>New Member?&nbsp;&nbsp;'
-	+'                    <button id="a-join" class="btn btn-danger btn-sm">Sign up</button></p>'
 	+'                </div>'
 	+'            </div>'
 	+'        </div>'
 	+'    </div>'
 	+'</div>  '
 };
-
+var join=x=>{
+	return ' <tr >'
+	+'  <td>아이디 </td>'
+	+'  <td id="join_table_can">'
+	+'   <input id= "join_id" name= "id" type="text"  placeholder ="아이디 입력" />  '
+	+'   <button id= "check_dupl_btn" name="check_dupl_btn" >중복확인</+button>'
+	+'   </td>'
+	+'  <tr >'
+	+'  <td>암호</td>'
+	+'  <td id="join_table_can">'
+	+'  <input id = "input-pass" name= "pass" type="text" placeholder ="암호 입력"  /></td>'
+	+'  </tr>'
+	+'  <tr >'
+	+'  <td>암호확인</td>'
+	+'  <td id="join_table_can">'
+	+'  <input  id= "" name= "pass" type="text" placeholder ="암호확인"  /></td>'
+	+'  </tr>'
+	+'  <tr >'
+	+'  <td>이름</td>'
+	+'  <td id="join_table_can">'
+	+'    <input type="text" name= "name" id="join_name" placeholder = "이름 입력"/></td>'
+	+'  </tr> '
+	+'  <tr>'
+	+'  <td>가입일</td>'
+	+'  <td id="join_table_can"><input type="date" /></td>'
+	+'  </tr>'
+	+'  <tr >'
+	+'  <td>주민번호</td>'
+	+'  <td id="join_table_can">'
+	+'  <input type="text" name= "ssn" id= "join_ssn" placeholder +="주민등록번호 입력"/></td>'
+	+'  </tr>'
+	+'  <tr>'
+	+'  <td>주소</td>'
+	+'  <td id="join_table_can">'
+	+'    <input type="text" name= "addr" id="join_addr" placeholder ="주소 입력"/></td>'
+	+'  </tr>'
+	+'  <tr>'
+	+'  <td>이메일</td>'
+	+'  <td id="join_table_can">'
+	+'    <input type="email" name= "email" id="join_email" placeholder ="E-mail 입력"/>'
+	+'    <select name="email_select" class="box" id="email_select" onChange="checkemailaddy();">'
+	+'         <option value="" selected>선택하세요</option>'
+	+'        <option value="naver.com">naver.com</option>'
+	+'        <option value="hotmail.com">hotmail.com</option>'
+	+'        <option value="hanmail.com">hanmail.com</option>'
+	+'        <option value="yahoo.co.kr">yahoo.co.kr</option>'
+	+'</select>'
+	+'    </td>'
+	+'  </tr>'
+	+'  <tr>'
+	+'  <td>전화번호</td>'
+	+'  <td id="join_table_can">'
+	+'  010 -'
+	+'  <input pattern="[0-9]{4}" type="tel" name= "phoneNum" placeholder ="앞자리 번호"/> -'
+	+'  <input pattern="[0-9]{4}" type="tel" name= "phoneNum" placeholder ="뒷자리 번호"/></td>'
+	+' </tr>'
+	+'  <tr>'
+	+'    <td colspan="2" >'
+	+'    <button id="join_confirm_btn" >회원가입</button>'
+	+'    </td>'
+	+'  </tr>'
+;
+}
+var Admin=x=>{
+	return '<div id="admin_header">'
+	+'  <header>'
+	+'    <h1>관리자 메인 페이지</h1>'
+	+'    <h4>김정원이 관리합니다</h4>'
+	+'  </header>'
+	+'</div>'
+	+'<div id="admin_main_wrapper">'
+	+'<div id="admin_nav">'
+	+'  <ul>'
+	+'    <li><a class="active" id="member_mgmt_link">회원관리</a></li><br +/>'
+	+'    <li><a>준비중</a></li><br />'
+	+'    <li><a>준비중</a></li><br />'
+	+'    <li><a>준비중</a></li>'
+	+'  </ul>'
+	+'</div>'
+	+'<div id="admin_main_area">'
+	+'<section>'
+	+'    <h1>회원관리</h1>'
+	+'    <table id="admin_main_table">'
+	+'      <tr id="admin_main_table tr">'
+	+'        <td id="admin_main_table td">'
+	+'          테이블 생성'
+	+'        </td>'
+	+'        <td>'
+	+'          준비중'
+	+'        </td>'
+	+'        <td>'
+	+'          준비중'
+	+'        </td>'
+	+'      </tr>'
+	+'      <tr>'
+	+'        <td>'
+	+'          준비중'
+	+'        </td>'
+	+'        <td>'
+	+'          준비중'
+	+'        </td>'
+	+'        <td>테이블 생성'
+	+'          <form id="create_table_form">'
+	+'            <select name="table_name" id="create_table">'
+	+'              <option value="member">member</option>'
+	+'              <option value="attend">attend </option>'
+	+'              <option value="bank">bank </option>'
+	+'              <option value="mobile">mobile</option>'
+	+'            </select> <br />'
+	+'              <input type="hidden"  name="cmd" value="create_table_form" />'
+	+'              <input type="hidden"  name="dir" value="admin" />'
+	+'              <input type="hidden"  name="page" value="main" />'
+	+'            <button id="create_table_btn">생성</button>'
+	+'          </form>'
+	+'        </td>'
+	+'      </tr>'
+	+'    </table>    '
+	+'</section>'
+	+'</div>'
+	+'</div>';
+}
 var navigation=()=>{
 	return '<style>'
 	+'    .navbar-inverse {'
@@ -207,6 +398,8 @@ var navigation=()=>{
 	+'                 <li id="li-application" class="col-sm-2"></li>'
 	+'            </ul>'
 	+'        </li>'
+	+' <li id="search-option">'
+	+'</li>'
 	+'      </ul>'
 	+'      <ul class="nav navbar-nav navbar-right">'
 	+'            <li id="li-login"></li>'
@@ -216,6 +409,9 @@ var navigation=()=>{
 	+'                    <span class="glyphicon glyphicon-search"></span>'
 	+'                </a>'
 	+'            </li>'
+////
+
+	///
 	+'      </ul>'
 	+'    </div>'
 	+'  </div>'
@@ -230,7 +426,12 @@ function createButtonNav1st() {
 	+'<span class="icon-bar"></span>'
 	+'</button>';
 };
-
+var createSelect=x=>{
+	return '<select id="'+x.id+'" name="'+x.name+'">"'+x.op+'"</select>'
+};
+var createOption=x=>{
+	return '<option value="'+x.op+'" " '+x.sel+'">'+x.val+'</option>'
+}
 var createATag=x=>{
 	return '<a id="'+x.id+'" href="'+x.link+'">'+x.val+'</a>';
 };
@@ -252,7 +453,7 @@ var createLI=x=>{
 	return '<li id="'+x.id+'" class="'+x.clazz+'"></li>';
 }
 var createInputText=x=>{
-	return $('<input type="text" id="'+x.id+'"class="'+x.clazz
+	return $('<input type="'+x.text+'" id="'+x.id+'"class="'+x.clazz
       +'"placeholder="example">');
 }
 var createButton=x=>{
@@ -285,7 +486,7 @@ var createNewTab=x=>{
 	};
 
 	var createTH=x=>{
-		console.log('16');
+		
 		var th = '<tr>'
 	  $.each(x.list, (i, j)=> {
 	    th += '<th id="'+x.id+'" style="text-align: center">'+j+'</th>'
@@ -295,7 +496,7 @@ var createNewTab=x=>{
 	}
 
 	var createTR=x=>{
-		console.log('17');
+		
 		var q= 0;
 	  var t = '';
 	   $.each(x.list, (i,j)=>{
@@ -305,7 +506,7 @@ var createNewTab=x=>{
 	  return t;
 	}
 	var createTd=x=>{
-		console.log('18');
+	
 	     var td = '';
 	     var w=0;
 	      $.each(x.list, (k,j)=>{
